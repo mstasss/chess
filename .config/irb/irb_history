@@ -1,0 +1,31 @@
+  def get_diagonal_moves(pos)\
+    moves = []\
+    i = -7\
+    14.times do\
+      moves << [pos[0] + i, pos[1] + i]\
+      i += 1\
+    end\
+    puts moves\
+  end
+get_
+get_diagonal_moves(3,3)
+get_diagonal_moves([3,3])
+  def get_diagonal_moves(pos)\
+    moves = []\
+    i = -7\
+    14.times do\
+      moves << [pos[0] + i, pos[1] + i]\
+      i += 1\
+    end\
+    p moves\
+  end
+  def get_diagonal_moves(pos)\
+    moves = []\
+    i = -7\
+    14.times do\
+      moves << [pos[0] + i, pos[1] + i]\
+      i += 1\
+    end\
+    p moves\
+  end
+get_diagonal_moves([3,3])
