@@ -23,7 +23,7 @@ each class. Give files `snake_case` titles.
 [minesweeper]: minesweeper
 
 ## Learning Goals
-
+- We addded it to github... yaaaayyyy! 
 - Know when and why private methods are used
 - Be able to read UML and understand the benefits of UML
 - Be familiar with how to use the Singleton module
