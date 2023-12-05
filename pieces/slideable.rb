@@ -22,46 +22,45 @@ module Slideable
       filter { |positions| self.color != board[*positions].color }
     #return all real moves 
   end  
-
+  #still learning git/hub. Added the below function
   def diagonal_moves(pos)
-    daig_moves = []
+    diag_moves = []
     starting_row = pos[0] 
     starting_col = pos[1]
-    
+  
     #This will check positions from current position to top-right
-    i,j = starting_row,starting_col
-    while i < 8 && j < 8
-      daig_moves << [i + 1, j + 1]
+    i,j = starting_row + 1,starting_col+ 1
+    while i <= 7 && j <= 7
+      diag_moves << [i, j]
       i += 1
       j +=1
     end 
-    
+  
     #this will check positions from current position to bottom-left
-    i,j = starting_row,starting_col
+    i,j = starting_row - 1,starting_col - 1
     while i >= 0 && j >= 0
-      daig_moves << [i -1, j -1]
+      diag_moves << [i, j]
       i -= 1
       j -=1
     end
-    
+  
     #this will check positions from current position to Top-left
-    i,j = starting_row,starting_col
-    while i >= 0 && j < 8
-      daig_moves << [i - 1, j + 1]
+    i,j = starting_row - 1,starting_col + 1
+    while i >= 0 && j <= 7
+      diag_moves << [i, j]
       i -= 1
       j +=1
     end
-    
+  
     #This will check positions from current poition to bottom-right
-    i,j = starting_row,starting_col
-    while i < 8 && j >= 0
-      daig_moves << [i + 1 , j - 1]
+    i,j = starting_row + 1,starting_col - 1
+    while i <= 7 && j >= 0
+      diag_moves << [i , j]
       i += 1
       j -= 1
-    end   
+    end
 
-    p diag moves  
-    
+    diag_moves
   end
   
   def horizontal_dirs(pos) #horiztonal_vertical moves
