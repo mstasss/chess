@@ -24,6 +24,43 @@ module Slideable
   end  
 
   def diagonal_moves(pos)
+    daig_moves = []
+    starting_row = pos[0] 
+    starting_col = pos[1]
+    
+    #This will check positions from current position to top-right
+    i,j = starting_row,starting_col
+    while i < 8 && j < 8
+      daig_moves << [i + 1, j + 1]
+      i += 1
+      j +=1
+    end 
+    
+    #this will check positions from current position to bottom-left
+    i,j = starting_row,starting_col
+    while i >= 0 && j >= 0
+      daig_moves << [i -1, j -1]
+      i -= 1
+      j -=1
+    end
+    
+    #this will check positions from current position to Top-left
+    i,j = starting_row,starting_col
+    while i >= 0 && j < 8
+      daig_moves << [i - 1, j + 1]
+      i -= 1
+      j +=1
+    end
+    
+    #This will check positions from current poition to bottom-right
+    i,j = starting_row,starting_col
+    while i < 8 && j >= 0
+      daig_moves << [i + 1 , j - 1]
+      i += 1
+      j -= 1
+    end   
+
+    p diag moves  
     
   end
   
@@ -33,7 +70,7 @@ module Slideable
     new_arr = []
     starting_row = pos[0] 
     starting_col = pos[1]
-    new_cols  = []
+    new_cols  = [] #i dont think new col or rows get used, can we removed them?
     new_rows = []
     i = 0
     while i <= 7
