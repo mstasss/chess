@@ -1,7 +1,7 @@
 require 'pry'
 module Slideable
   HORIZ_VERT_DIRS = []
-  DIAGONAL_DIRS = []
+  DIAGONAL_DIRS = [[1,1], [-1,-1],[-1,1],[1,-1]]
 
   def moves
     #kats moves Method
@@ -23,49 +23,14 @@ module Slideable
     diag_moves = []
     starting_row = pos[0]
     starting_col = pos[1]
-
-    #This will check positions from current position to top-right
-    new_row,new_col = starting_row + 1,starting_col+ 1
-    row_change = 1
-    col_change = 1
-    while board.valid_pos?(new_row,new_col)
-      diag_moves << [new_row, new_col]
-      new_row += row_change
-      new_col += col_change
+    DIAGONAL_DIRS.each do |(row_change,col_change)|
+      new_row,new_col = starting_row + row_change,starting_col + col_change
+      while board.valid_pos?(new_row,new_col)
+        diag_moves << [new_row, new_col]
+        new_row += row_change
+        new_col += col_change
+      end
     end
-    #while new generated position is valid, do this thing...
-
-    #this will check positions from current position to bottom-left
-
-    new_row,new_col = starting_row - 1,starting_col - 1
-    row_change = -1
-    col_change = -1
-    while board.valid_pos?(new_row,new_col)
-      diag_moves << [new_row, new_col]
-      new_row += row_change
-      new_col += col_change
-    end
-
-    #this will check positions from current position to Top-left
-    new_row,new_col = starting_row - 1,starting_col + 1
-    row_change = -1
-    col_change = 1
-    while board.valid_pos?(new_row,new_col)
-      diag_moves << [new_row, new_col]
-      new_row += row_change
-      new_col += col_change
-    end
-
-    #This will check positions from current poition to bottom-right
-    new_row,new_col = starting_row + 1,starting_col - 1
-    row_change = 1
-    col_change = -1
-    while board.valid_pos?(new_row,new_col)
-      diag_moves << [new_row, new_col]
-      new_row += row_change
-      new_col += col_change
-    end
-
     diag_moves
   end
 
