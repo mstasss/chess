@@ -25,35 +25,45 @@ module Slideable
     starting_col = pos[1]
 
     #This will check positions from current position to top-right
-    i,j = starting_row + 1,starting_col+ 1
-    while i <= 7 && j <= 7
-      diag_moves << [i, j]
-      i += 1
-      j += 1
+    new_row,new_col = starting_row + 1,starting_col+ 1
+    row_change = 1
+    col_change = 1
+    while board.valid_pos?(new_row,new_col)
+      diag_moves << [new_row, new_col]
+      new_row += row_change
+      new_col += col_change
     end
+    #while new generated position is valid, do this thing...
 
     #this will check positions from current position to bottom-left
-    i,j = starting_row - 1,starting_col - 1
-    while i >= 0 && j >= 0
-      diag_moves << [i, j]
-      i += -1
-      j += -1
+
+    new_row,new_col = starting_row - 1,starting_col - 1
+    row_change = -1
+    col_change = -1
+    while board.valid_pos?(new_row,new_col)
+      diag_moves << [new_row, new_col]
+      new_row += row_change
+      new_col += col_change
     end
 
     #this will check positions from current position to Top-left
-    i,j = starting_row - 1,starting_col + 1
-    while i >= 0 && j <= 7
-      diag_moves << [i, j]
-      i += -1
-      j += 1
+    new_row,new_col = starting_row - 1,starting_col + 1
+    row_change = -1
+    col_change = 1
+    while board.valid_pos?(new_row,new_col)
+      diag_moves << [new_row, new_col]
+      new_row += row_change
+      new_col += col_change
     end
-#
+
     #This will check positions from current poition to bottom-right
-    i,j = starting_row + 1,starting_col - 1
-    while i <= 7 && j >= 0
-      diag_moves << [i , j]
-      i += 1
-      j += -1
+    new_row,new_col = starting_row + 1,starting_col - 1
+    row_change = 1
+    col_change = -1
+    while board.valid_pos?(new_row,new_col)
+      diag_moves << [new_row, new_col]
+      new_row += row_change
+      new_col += col_change
     end
 
     diag_moves
