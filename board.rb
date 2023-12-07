@@ -12,15 +12,17 @@ require_relative './pieces/steppable.rb'
 
 class Board
 
+  LENGTH = 8
+
   def initialize
     @np = NullPiece.instance()
-    @board = Array.new(8) { Array.new(8, @np) }
+    @board = Array.new(8) { Array.new(LENGTH, @np) }
     self.place_pieces
   end
 
   def place_non_pawns_row(color)
-    row_i = color == :white ? 0 : 7 
-    order = ["Rook","Knight","Bishop","King","Queen","Bishop","Knight","Rook"] 
+    row_i = color == :white ? 0 : 7
+    order = ["Rook","Knight","Bishop","King","Queen","Bishop","Knight","Rook"]
     order.each_with_index do |piece_type,i|
       position = [row_i,i]
       piece_class = Kernel.const_get(piece_type)
@@ -28,7 +30,7 @@ class Board
     end
   end
 
-  def place_pawns_row(color) 
+  def place_pawns_row(color)
     row_i = color == :white ? 1 : 6
     8.times do |i|
       position = [row_i,i]
@@ -41,9 +43,9 @@ class Board
       self.place_non_pawns_row(color)
       self.place_pawns_row(color)
     end
-  end 
+  end
 
-  def board_printer 
+  def board_printer
     @board.each do |row|
       emoji_row = []
       row.map do |emoji|
@@ -54,7 +56,7 @@ class Board
     nil
   end
 
-  def board 
+  def board
     @board.each do |row|
       p row
     end
@@ -78,6 +80,10 @@ class Board
 
   def valid_pos?(pos)
     pos[0].between?(0,7) && pos[1].between?(0,7)
+  end
+
+  def length
+    LENGTH
   end
 
   private

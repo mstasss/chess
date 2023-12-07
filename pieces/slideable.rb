@@ -2,7 +2,7 @@ require 'pry'
 module Slideable
   HORIZ_VERT_DIRS = []
   DIAGONAL_DIRS = []
-  
+
   def moves
     #kats moves Method
     #trying to get all possible MOVES
@@ -11,99 +11,93 @@ module Slideable
     #add horiztonals if I'm allowed ot move horizontally
     #return all possible moves
     #------
-    
-    #get horizontal move options (all)
-    #get all vertical moves
-    #check first option, if open, 
-      #binding.pry
-    # move_diffs.
-      # map{ |add| [@pos[0] + add[0], @pos[1] + add[1]]}.
+
+      #if piece can move diagonally, use helper method to get those moves
+      #if piece can move horiztonally/vertical, use helper method to get those moves
       filter { |move| board.valid_pos?(move) }.
       filter { |positions| self.color != board[*positions].color }
-    #return all real moves 
-  end  
+    #return all real moves
+  end
   #still learning git/hub. Added the below function
   def diagonal_moves(pos)
     diag_moves = []
-    starting_row = pos[0] 
+    starting_row = pos[0]
     starting_col = pos[1]
-  
+
     #This will check positions from current position to top-right
     i,j = starting_row + 1,starting_col+ 1
     while i <= 7 && j <= 7
       diag_moves << [i, j]
       i += 1
-      j +=1
-    end 
-  
+      j += 1
+    end
+
     #this will check positions from current position to bottom-left
     i,j = starting_row - 1,starting_col - 1
     while i >= 0 && j >= 0
       diag_moves << [i, j]
-      i -= 1
-      j -=1
+      i += -1
+      j += -1
     end
-  
+
     #this will check positions from current position to Top-left
     i,j = starting_row - 1,starting_col + 1
     while i >= 0 && j <= 7
       diag_moves << [i, j]
-      i -= 1
-      j +=1
+      i += -1
+      j += 1
     end
-  
+#
     #This will check positions from current poition to bottom-right
     i,j = starting_row + 1,starting_col - 1
     while i <= 7 && j >= 0
       diag_moves << [i , j]
       i += 1
-      j -= 1
+      j += -1
     end
 
     diag_moves
   end
-  
+
   def horizontal_dirs(pos) #horiztonal_vertical moves
     #starting position = [3,4]
-    #horizontal = 
+    #horizontal =
     new_arr = []
-    starting_row = pos[0] 
+    starting_row = pos[0]
     starting_col = pos[1]
-    new_cols  = [] #i dont think new col or rows get used, can we removed them?
-    new_rows = []
     i = 0
-    while i <= 7
+    while i <= board.length - 1
       if i == starting_row
         i += 1
-      else  
+      else
         new_arr << [i, starting_col]
         i += 1
       end
-    end  
+    end
 
     i = 0
-    while i <= 7
+    while i <= board.length - 1
       if i == starting_col
         i+= 1
       else
         new_arr << [starting_row, i]
         i += 1
       end
-    end  
-    
+    end
+
     new_arr
-    
+
   end
 
-  
+
   #SLIDEABLE PIECES
   #bishop/rook/queen
 
-  #bishop = diagnoal 
+  #bishop = diagnoal
   # starting = [3,3]
   # possible moves are [0,0],[1,1],[2,2][4,4] && [6,0][5,1],[4,2],[2,4],[1,5]
   #aka either add/subtract same number from both sides (3-3,3-3 = 0,0), or opposite number (3+3,3-3 = 6,0)
-  
+
   #rook = horizontal/vertical
   #starting = [3,3]
   #possible = [0,3][1,3][2,3][4,3][5,3] && [3,0],[3,1][3,2][3,4][3,5][3,6][3,7]
