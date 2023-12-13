@@ -9,7 +9,7 @@ testing.move_piece([1, 4], [2, 4])
 testing.move_piece([0, 3], [1, 3])
 # testing.board_printer
 
-testing[0,0].horizontal_dirs([0,0])
+p testing[0,0].horizontal_dirs([0,0])
 puts "im done"
 
 
