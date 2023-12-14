@@ -1,86 +1,47 @@
 require 'pry'
 module Slideable
-  HORIZ_VERT_DIRS = []
+  HORIZONTAL_DIRS = [[0,1],[-1,0],[0,-1],[1,0]]
   DIAGONAL_DIRS = [[1,1], [-1,-1],[-1,1],[1,-1]]
 
   def moves
-    #kats moves Method
-    #trying to get all possible MOVES
-    #what are the move direction options
-    #add to my possible moves, diags if i'm allowed ot move diagnoally
-    #add horiztonals if I'm allowed ot move horizontally
-    #return all possible moves
-    #------
-
-      #if piece can move diagonally, use helper method to get those moves
-      #if piece can move horiztonally/vertical, use helper method to get those moves
-      filter { |move| board.valid_pos?(move) }.
-      filter { |positions| self.color != board[*positions].color }
-    #return all real moves
+      moves = []
+      if self.move_dirs.include?(:diagonal)
+        moves.concat(diagonal_moves(pos))
+      end
+      if self.move_dirs.include?(:horizontal)
+        moves.concat(horizontal_dirs(pos))
+      end
+      moves
+        .filter { |move| board.valid_pos?(move) }
+        .filter { |positions| self.color != board[*positions].color }
+      moves
   end
-  #still learning git/hub. Added the below function
-  def diagonal_moves(pos)
-    diag_moves = []
+
+  def get_dirs(pos,dirs)
+    moves = []
     starting_row = pos[0]
     starting_col = pos[1]
-    DIAGONAL_DIRS.each do |(row_change,col_change)|
+    dirs.each do |(row_change,col_change)|
       new_row,new_col = starting_row + row_change,starting_col + col_change
-      while board.valid_pos?(new_row,new_col)
-        diag_moves << [new_row, new_col]
+      while board.valid_pos?([new_row,new_col])
+        if self.color == board[new_row,new_col].color
+          break
+        end
+        moves << [new_row, new_col]
         new_row += row_change
         new_col += col_change
       end
     end
-    diag_moves
+    moves
   end
 
-  def horizontal_dirs(pos) #horiztonal_vertical moves
-    #starting position = [3,4]
-    #horizontal =
-    new_arr = []
-    starting_row = pos[0]
-    starting_col = pos[1]
-    i = 0
-    while i <= board.length - 1
-      if i == starting_row
-        i += 1
-      else
-        new_arr << [i, starting_col]
-        i += 1
-      end
-    end
-
-    i = 0
-    while i <= board.length - 1
-      if i == starting_col
-        i+= 1
-      else
-        new_arr << [starting_row, i]
-        i += 1
-      end
-    end
-
-    new_arr
-
+  def horizontal_dirs(pos)
+    get_dirs(pos,HORIZONTAL_DIRS)
   end
 
-
-  #SLIDEABLE PIECES
-  #bishop/rook/queen
-
-  #bishop = diagnoal
-  # starting = [3,3]
-  # possible moves are [0,0],[1,1],[2,2][4,4] && [6,0][5,1],[4,2],[2,4],[1,5]
-  #aka either add/subtract same number from both sides (3-3,3-3 = 0,0), or opposite number (3+3,3-3 = 6,0)
-
-  #rook = horizontal/vertical
-  #starting = [3,3]
-  #possible = [0,3][1,3][2,3][4,3][5,3] && [3,0],[3,1][3,2][3,4][3,5][3,6][3,7]
-  #aka +1 to first number only (3+1,3 = 4,3) or second number only (3,3-1 = 3,2)
-
-  #queen = horizontal, vertical, and diagnoal
-  #starting = [3,3]
-  #possible = all moves from two above
+  def diagonal_moves(pos)
+    get_dirs(pos,DIAGONAL_DIRS)
+  end
 
   #CHESSBOARD IN POSITIONS
   # [0,0] [0,1] [0,2] [0,3] [0,4] [0,5] [0,6] [0,7]
