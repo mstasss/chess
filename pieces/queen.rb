@@ -4,7 +4,7 @@ require_relative 'slideable.rb'
 class Queen < Piece
   include Slideable
   def move_dirs
-    #returns both horizontally and vertically
+    [:horizontal,:diagonal]
   end
 
   def to_s

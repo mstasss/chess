@@ -4,8 +4,8 @@ require_relative 'slideable.rb'
 
 class Rook < Piece
   include Slideable
-  def move_dirs 
-    # returns "Horizontal" & "Verticals"
+  def move_dirs
+    [:horizontal]
   end
 
   def symbol
