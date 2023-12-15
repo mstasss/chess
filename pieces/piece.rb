@@ -26,6 +26,14 @@ class Piece
     #returns =
   end
 
+  def move_into_check?(end_pos)
+    #check board with new piece end pos, to see if it puts my color king in check
+    #hypothetically moving the piece
+    #looking at all the other pieces available moves
+    #do any of those available moves == kings.position
+    check_board = board.clone
+  end
+
 
 
 end

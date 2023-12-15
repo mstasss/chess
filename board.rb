@@ -45,8 +45,8 @@ class Board
     end
   end
 
-  def board_printer
-    @board.each do |row|
+  def board_printer(real_board=board)
+    board.each do |row|
       emoji_row = []
       row.map do |emoji|
         emoji_row << emoji.to_s
@@ -85,6 +85,20 @@ class Board
   def length
     LENGTH
   end
+
+  def in_check?
+    #is there a piece with an available move == king's position
+    false
+  end
+
+  def dup(thing)
+    # fake_board = [[1],[2],[3]]
+    fake_board = thing.map {|item| dup(item)}
+    fake_board[0,0] = "It works!!"
+    fake_board
+  end
+
+
 
   private
 
