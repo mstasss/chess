@@ -15,8 +15,12 @@ class Piece
     nil #returns nil for NullPiece
   end
 
-  def moves
-    puts self.move_diffs
+  def moves(new_row,new_col)
+    #will magically tell you when a piece is in your way
+    # puts self.move_diffs
+    if self.color == new_position_piece.color
+    end
+      #don't go there
     #keep track of board, and don't move off board or into another same color piece
     #input = possible moves from the piece
     #returns =
