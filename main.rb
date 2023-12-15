@@ -8,9 +8,11 @@ testing.move_piece([1, 4], [2, 4])
 
 testing.move_piece([0, 3], [1, 3])
 testing.move_piece([1,6], [3,6])
-testing.board_printer
-
-p testing[0,5].moves
+testing.move_piece([6,1], [4,1])
+# testing.board_printer
+# dup_testing_board = testing.dup
+# testing.board_printer(dup_testing_board)
+# p testing[1,2].side_attacks
 
 
 # CHESSBOARD IN POSITIONS
