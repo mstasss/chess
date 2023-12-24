@@ -19,7 +19,7 @@ class Board
   def initialize
     @np = NullPiece.instance()
     @board = Array.new(8) { Array.new(LENGTH, @np) }
-    @pieces = self.place_pieces
+    self.place_pieces
   end
 
   def place_non_pawns_row(color)
@@ -45,7 +45,6 @@ class Board
       self.place_non_pawns_row(color)
       self.place_pawns_row(color)
     end
-    self
   end
 
   def board_printer(real_board=board)
@@ -89,20 +88,27 @@ class Board
     LENGTH
   end
 
-  def in_check?
-    #is there a piece with an available move == king's position
-    false
+  def in_check?(color)
+    king_pos = find_king(color).pos
+    pieces.any? do |p|
+      p.color != color && p.moves.include?(king_pos)
+    end
+  end
+
+  def find_king(color)
+    king_pos = pieces.find { |p| p.color == color && p.is_a?(King) }
+    king_pos || (raise 'king not found?')
   end
 
   def dup
-    board_copy = Board.new
+    new_board = Board.new
     @board.each_with_index do |row, row_idx|
       row.each_with_index do |piece, col_idx|
         next if piece.is_a?(NullPiece)
-        board_copy[row_idx, col_idx] = piece.dup_with_new_board(board_copy)
+        new_board[row_idx, col_idx] = piece.dup_with_new_board(new_board)
       end
     end
-    board_copy
+    new_board
   end
 
 

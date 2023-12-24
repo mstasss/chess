@@ -27,11 +27,9 @@ class Piece
   end
 
   def move_into_check?(end_pos)
-    #check board with new piece end pos, to see if it puts my color king in check
-    #hypothetically moving the piece
-    #looking at all the other pieces available moves
-    #do any of those available moves == kings.position
-    check_board = board.clone
+    temp_board = board.dup
+    temp_board.move_piece(self.pos, end_pos)
+    temp_board.in_check?(self.color)
   end
 
   def valid_moves
