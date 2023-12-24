@@ -12,12 +12,14 @@ require_relative './pieces/steppable.rb'
 
 class Board
 
+  attr_accessor :pieces
+
   LENGTH = 8
 
   def initialize
     @np = NullPiece.instance()
     @board = Array.new(8) { Array.new(LENGTH, @np) }
-    self.place_pieces
+    @pieces = self.place_pieces
   end
 
   def place_non_pawns_row(color)
@@ -43,6 +45,7 @@ class Board
       self.place_non_pawns_row(color)
       self.place_pawns_row(color)
     end
+    self
   end
 
   def board_printer(real_board=board)
@@ -91,12 +94,17 @@ class Board
     false
   end
 
-  def dup(thing)
-    # fake_board = [[1],[2],[3]]
-    fake_board = thing.map {|item| dup(item)}
-    fake_board[0,0] = "It works!!"
-    fake_board
+  def dup
+    board_copy = Board.new
+    @board.each_with_index do |row, row_idx|
+      row.each_with_index do |piece, col_idx|
+        next if piece.is_a?(NullPiece)
+        board_copy[row_idx, col_idx] = piece.dup_with_new_board(board_copy)
+      end
+    end
+    board_copy
   end
+
 
 
 

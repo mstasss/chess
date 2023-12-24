@@ -2,7 +2,7 @@ require 'singleton'
 
 class Piece
   attr_reader :color, :board
-  attr_accessor :pos
+  attr_accessor :pos, :pieces
 
   def initialize(color, board, pos)
     @color = color
@@ -34,6 +34,12 @@ class Piece
     check_board = board.clone
   end
 
+  def valid_moves
+  end
+
+  def dup_with_new_board(new_board)
+    self.class.new(self.color, new_board, self.pos.dup)
+  end
 
 
 end
