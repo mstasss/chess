@@ -7,12 +7,9 @@ testing.move_piece([1, 3], [2, 3])
 testing.move_piece([1, 4], [2, 4])
 
 testing.move_piece([0, 3], [1, 3])
-testing.move_piece([1,6], [3,6])
-testing.move_piece([6,1], [4,1])
-# testing.board_printer
-# dup_testing_board = testing.dup
-# testing.board_printer(dup_testing_board)
-# p testing[1,2].side_attacks
+testing.move_piece([7,4], [2,2])
+p testing.in_check?(:white)
+testing.board_printer
 
 
 # CHESSBOARD IN POSITIONS

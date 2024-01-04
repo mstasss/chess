@@ -65,7 +65,7 @@ class Board
   end
 
   def move_piece(start_pos, end_pos)
-    raise if start_pos.nil? || valid_pos?(end_pos) == false
+    raise 'thats not a valid position' if start_pos.nil? || valid_pos?(end_pos) == false
     self[*end_pos] = self[*start_pos]
     self[*start_pos] = @np
     self[*end_pos].pos = end_pos
@@ -90,14 +90,18 @@ class Board
 
   def in_check?(color)
     king_pos = find_king(color).pos
-    pieces.any? do |p|
-      p.color != color && p.moves.include?(king_pos)
+    @board.flatten.any? do |piece|
+      piece.color != color && piece.is_a?(Piece) && piece.moves&.include?(king_pos)
     end
   end
 
   def find_king(color)
-    king_pos = pieces.find { |p| p.color == color && p.is_a?(King) }
-    king_pos || (raise 'king not found?')
+    @board.each do |row|
+      row.each do |piece|
+        return piece if piece.color == color && piece.is_a?(King)
+      end
+    end
+    raise 'King not found?'
   end
 
   def dup
