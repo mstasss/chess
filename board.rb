@@ -66,11 +66,18 @@ class Board
 
   def move_piece(start_pos, end_pos)
     raise 'thats not a valid position' if start_pos.nil? || valid_pos?(end_pos) == false
+    raise "that's not a valid move" unless self[*start_pos].valid_moves.include?(end_pos)
+      self[*end_pos] = self[*start_pos]
+      self[*start_pos] = @np
+      self[*end_pos].pos = end_pos
+  end
+
+  def move_piece!(start_pos, end_pos) #doesn't care if it's valid
+    raise 'thats not a valid position' if start_pos.nil? || valid_pos?(end_pos) == false
     self[*end_pos] = self[*start_pos]
     self[*start_pos] = @np
     self[*end_pos].pos = end_pos
   end
-
 
   def [](row, col)
     @board[row][col]
