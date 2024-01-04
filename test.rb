@@ -88,7 +88,7 @@ else
   puts "Pass: Black pawn cannot move forward as it's blocked."
 end
 
-#test of a change
+#test of a change!
 
 # CHESSBOARD IN POSITIONS
 # [0,0] [0,1] [0,2] [0,3] [0,4] [0,5] [0,6] [0,7]
