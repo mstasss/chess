@@ -84,10 +84,6 @@ class Board
     pos[0].between?(0,7) && pos[1].between?(0,7)
   end
 
-  # def valid_pos?(row, col)
-  #   row.between?(0, 7) && col.between?(0, 7)
-  # end
-
   def length
     LENGTH
   end
