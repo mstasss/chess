@@ -5,7 +5,6 @@ require_relative 'board'
 testing = Board.new
 testing.move_piece([1, 3], [2, 3])
 testing.move_piece([1, 4], [2, 4])
-p testing.dup
 
 
 # CHESSBOARD IN POSITIONS

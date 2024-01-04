@@ -112,8 +112,6 @@ class Board
   end
 
 
-
-
   private
 
   attr_reader :board
