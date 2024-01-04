@@ -26,8 +26,7 @@ class Piece
   end
 
   def valid_moves
-    possible_moves = self.moves
-    possible_moves.reject do |pos|
+    moves.reject do |pos|
       move_into_check?(pos)
     end
   end
