@@ -8,7 +8,6 @@ class Piece
     @color = color
     @board = board
     @pos = pos
-
   end
 
   def symbol
@@ -16,23 +15,20 @@ class Piece
   end
 
   def moves(new_row,new_col)
-    #will magically tell you when a piece is in your way
-    # puts self.move_diffs
-    if self.color == new_position_piece.color
-    end
-      #don't go there
-    #keep track of board, and don't move off board or into another same color piece
-    #input = possible moves from the piece
-    #returns =
+    #this class will inherit from subclasses
+    raise NotImplementedError, "This method should be overridden in the subclass."
   end
 
   def move_into_check?(end_pos)
     temp_board = board.dup
-    temp_board.move_piece(self.pos, end_pos)
+    temp_board.move_piece!(self.pos, end_pos)
     temp_board.in_check?(self.color)
   end
 
   def valid_moves
+    moves.reject do |pos|
+      move_into_check?(pos)
+    end
   end
 
   def dup_with_new_board(new_board)
