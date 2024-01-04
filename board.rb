@@ -12,6 +12,8 @@ require_relative './pieces/steppable.rb'
 
 class Board
 
+  attr_accessor :pieces
+
   LENGTH = 8
 
   def initialize
@@ -86,18 +88,28 @@ class Board
     LENGTH
   end
 
-  def in_check?
-    #is there a piece with an available move == king's position
-    false
+  def in_check?(color)
+    king_pos = find_king(color).pos
+    pieces.any? do |p|
+      p.color != color && p.moves.include?(king_pos)
+    end
   end
 
-  def dup(thing)
-    # fake_board = [[1],[2],[3]]
-    fake_board = thing.map {|item| dup(item)}
-    fake_board[0,0] = "It works!!"
-    fake_board
+  def find_king(color)
+    king_pos = pieces.find { |p| p.color == color && p.is_a?(King) }
+    king_pos || (raise 'king not found?')
   end
 
+  def dup
+    new_board = Board.new
+    @board.each_with_index do |row, row_idx|
+      row.each_with_index do |piece, col_idx|
+        next if piece.is_a?(NullPiece)
+        new_board[row_idx, col_idx] = piece.dup_with_new_board(new_board)
+      end
+    end
+    new_board
+  end
 
 
   private
