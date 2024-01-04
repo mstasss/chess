@@ -9,6 +9,7 @@ class Pawn < Piece
   end
 
   def moves
+    forward_steps + side_attacks
   end
 
   def to_s
@@ -19,49 +20,43 @@ class Pawn < Piece
     end
   end
 
-  # private
+  private
 
   def at_start_row?
-    (self.color == :white && self.pos[0] == 1) || (self.color == :black && self.pos[0] == 6)
+    (color == :white && pos[0] == 1) || (color == :black && pos[0] == 6)
   end
 
   def forward_dir
-    if self.color == :white
-      1
-    else
-      -1
-    end
+    color == :white ? 1 : -1
   end
 
   def forward_steps
+    i, j = pos
+    one_step = [i + forward_dir, j]
+    steps = []
+    steps << one_step if board.empty?(one_step) && board.valid_pos?(one_step)
+
     if at_start_row?
-      [0,2 * forward_dir] #steps
-    else
-      [0,forward_dir]
+      two_step = [i + 2 * forward_dir, j]
+      steps << two_step if board.empty?(two_step) && board.valid_pos?(two_step)
     end
+
+    steps
   end
 
   def side_attacks
-    if self.color == :black
-      return get_dirs(self.pos,BLACK_SIDE_ATTACKS)
-    else
-      return get_dirs(self.pos,WHITE_SIDE_ATTACKS)
-    end
-  end
-
-  def get_dirs(pos,dirs)
+    i, j = pos
     moves = []
-    starting_row = pos[0]
-    starting_col = pos[1]
-    dirs.each do |(row_change,col_change)|
-      new_row,new_col = starting_row + row_change,starting_col + col_change
-        if self.color == board[new_row,new_col].color
-          break
-        end
-        moves << [new_row, new_col]
-        new_row += row_change
-        new_col += col_change
+
+    attack_dirs = color == :black ? BLACK_SIDE_ATTACKS : WHITE_SIDE_ATTACKS
+    attack_dirs.each do |(row_change, col_change)|
+      new_pos = [i + row_change, j + col_change]
+      next unless board.valid_pos?(new_pos) # This unpacks new_pos into two arguments
+
+      next if board.empty?(*new_pos)
+      moves << new_pos if board[*new_pos].color != color
     end
+
     moves
   end
 
