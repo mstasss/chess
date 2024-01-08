@@ -8,9 +8,9 @@ class Game
 
     def initialize ()
         @board = Board.new
-        @display = Display.new
+        @display = Display.new(@board)
         @players = {player_1: Player.new(:white), player_2: Player.new(:black)}
-        @current_player = :player_1
+        @current_player = :player_1.color
     end
 
     def play
@@ -29,7 +29,7 @@ class Game
     end
 
     def swap_turn! 
-        @current_player == :player_1 ? @current_player = :player_2 : @current_player = :player_1
+        @current_player.color == :white ? @current_player = :player_2 : @current_player = :player_1
     end
 end
 
