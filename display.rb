@@ -4,7 +4,7 @@ require_relative 'cursor.rb'
 class Display
 
     def initialize(board)
-        @board = Board.new
+        @board = board
     end
 
     def render
