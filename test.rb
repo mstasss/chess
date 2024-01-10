@@ -1,4 +1,8 @@
 require_relative 'board'
+require_relative 'display.rb'
+require_relative './Game.rb'
+require_relative './players/humanPlayer.rb'
+require_relative './players/player.rb'
 require_relative './pieces/bishop.rb'
 require_relative './pieces/king.rb'
 require_relative './pieces/knight.rb'
@@ -12,10 +16,8 @@ require_relative './pieces/steppable.rb'
 
 
 # TESTS
-testing = Board.new
-testing.move_piece([1,0],[2,0])
-testing.board_printer
-
+chess = Game.new
+chess.play
 
 #test of a change!
 
