@@ -45,7 +45,8 @@ class Game
     end
 
     if $PROGRAM_NAME == __FILE__
-        Game.new.play
+      puts "yay"
+        #Game.new.play
     end
 
 
