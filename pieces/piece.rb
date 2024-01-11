@@ -36,7 +36,6 @@ class Piece
     self.class.new(self.color, new_board, self.pos.dup)
   end
 
-
 end
 
 
