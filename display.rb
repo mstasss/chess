@@ -70,7 +70,7 @@ class Display
 
   def render
     system("clear")
-    puts "Use arrow keys, WASD, or vim to move. Use space or enter to confirm move."
+    puts "Use arrow keys or WASD keys to move. Use space or enter to confirm move."
     build_grid.each { |row| puts row.join }
 
     @notifications.each do |_key, val|
