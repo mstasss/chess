@@ -47,17 +47,6 @@ class Board
     end
   end
 
-  def board_printer(real_board=board)
-    board.each do |row|
-      emoji_row = []
-      row.map do |emoji|
-        emoji_row << emoji.to_s
-      end
-      p emoji_row
-    end
-    nil
-  end
-
   def board
     @board.each do |row|
       p row
@@ -100,14 +89,11 @@ class Board
   end
 
   def checkmate?(color)
-    return false unless in_check?(color) 
+    return false unless in_check?(color)
 
-    if find_king(color).valid_moves.empty? 
+    if find_king(color).valid_moves.empty?
       "Game over"
     end
-    # pieces.select { |p| p.color == color }.all? do |piece|
-    #   piece.valid_moves.empty?
-    # end
   end
 
   def find_king(color)
@@ -135,9 +121,6 @@ class Board
     row, col = pos
     self[row, col].is_a?(NullPiece)
   end
-
-
-  # private
 
   attr_reader :board
 
