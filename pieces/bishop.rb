@@ -14,9 +14,9 @@ class Bishop < Piece
 
   def to_s
     if color == :white
-      return "♗"
+      return " ♗ "
     else
-      "♝"
+      " ♝ "
     end
   end
 

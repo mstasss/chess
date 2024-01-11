@@ -1,3 +1,22 @@
+# require_relative 'board.rb'
+# require_relative 'cursor.rb'
+
+# class Display
+
+#   attr_reader :board, :cursor
+
+#     def initialize(board)
+#         @board = board
+#         @cursor = Cursor.new([0, 0], board)
+#     end
+
+#     def render
+#       board.board_printer
+#     end
+
+# end
+
+
 require "colorize"
 require_relative "cursor"
 
@@ -12,7 +31,7 @@ class Display
   end
 
   def build_grid
-    @board.rows.map.with_index do |row, i|
+    @board.board.map.with_index do |row, i| # Use @board.board instead of @board.rows
       build_row(row, i)
     end
   end
@@ -28,7 +47,7 @@ class Display
     if cursor.cursor_pos == [i, j] && cursor.selected
       bg = :light_green
     elsif cursor.cursor_pos == [i, j]
-      bg = :light_red
+      bg = :pink
     elsif (i + j).odd?
       bg = :light_blue
     else
@@ -51,7 +70,7 @@ class Display
 
   def render
     system("clear")
-    puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
+    puts "Use arrow keys or WASD keys to move. Use space or enter to confirm move."
     build_grid.each { |row| puts row.join }
 
     @notifications.each do |_key, val|
@@ -60,20 +79,3 @@ class Display
   end
 
 end
-
-
-
-
-# require_relative 'board.rb'
-# require_relative 'cursor.rb'
-
-# class Display
-
-#     def initialize(board)
-#         @board = board
-#     end
-
-#     def render
-#     end
-
-# end

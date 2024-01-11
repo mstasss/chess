@@ -4,35 +4,30 @@ require_relative './players/humanPlayer.rb'
 
 class Game
     attr_reader :board, :display, :current_player, :players
-    def initialize ()
-        @board = Board.new
-        @display = Display.new(@board)
-        @players = {
-            player_1: HumanPlayer.new(:white, @display),
-            player_2: HumanPlayer.new(:black, @display)
-        }
-        @current_player = :white
+
+    def initialize
+      @board = Board.new
+      @display = Display.new(@board)
+      @players = {
+          white: HumanPlayer.new(:white, @display),
+          black: HumanPlayer.new(:black, @display)
+      }
+      @current_player = :white
     end
 
     def play
-        until board.in_check?(current_player)
-          begin
-            start_pos, end_pos = players[current_player].make_move(board)
-            board.move_piece(current_player, start_pos, end_pos)
-            swap_turn!
-            notify_players
-          rescue StandardError => e
-            @display.notifications[:error] = e.message
-            retry
-          end
+      until board.checkmate?(current_player)
+        begin
+          start_pos, end_pos = players[current_player].make_move(board)
+          board.move_piece(start_pos, end_pos)
+          swap_turn!
+
+        rescue RuntimeError => e
+          puts "Error: #{e.message}"
+          sleep(1.5)
         end
-
-        display.render
-        puts "#{current_player} is checkmated."
-
-        nil
+      end
     end
-
 
   private
 
@@ -45,11 +40,9 @@ class Game
     end
 
     if $PROGRAM_NAME == __FILE__
-        Game.new.play
+      puts "yay"
+      Game.new.play
     end
 
 
 end
-
-# chess = Game.new
-# chess.play

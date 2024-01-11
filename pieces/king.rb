@@ -9,7 +9,7 @@ class King < Piece
   end
 
   # def moves
-    
+
   #   # what are we yelling at (class)
   #   # what are we yelling (method name)
   #   # what are the inputs (args)
@@ -20,9 +20,9 @@ class King < Piece
 
   def to_s
     if color == :white
-      return "♔"
+      return " ♔ "
     else
-      "♚"
+      " ♚ "
     end
   end
 
