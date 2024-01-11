@@ -26,6 +26,7 @@ class Piece
   end
 
   def valid_moves
+    raise "That is not a piece. Select one of your pieces to move" if moves.nil?
     moves.reject do |pos|
       move_into_check?(pos)
     end

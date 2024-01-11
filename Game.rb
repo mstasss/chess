@@ -27,6 +27,8 @@ class Game
           sleep(1.5)
         end
       end
+      swap_turn!
+      puts "Game Over, #{current_player} wins"
     end
 
   private

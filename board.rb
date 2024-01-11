@@ -100,11 +100,14 @@ class Board
   end
 
   def checkmate?(color)
-    return false unless in_check?(color)
+    return false unless in_check?(color) 
 
-    pieces.select { |p| p.color == color }.all? do |piece|
-      piece.valid_moves.empty?
+    if find_king(color).valid_moves.empty? 
+      "Game over"
     end
+    # pieces.select { |p| p.color == color }.all? do |piece|
+    #   piece.valid_moves.empty?
+    # end
   end
 
   def find_king(color)
