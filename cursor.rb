@@ -55,7 +55,7 @@ class Cursor
     case key
     when :ctrl_c
       exit 0
-    when :return, :space
+    when :return, :space, :newline
       toggle_selected
       cursor_pos
     when :left, :right, :up, :down
