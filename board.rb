@@ -12,7 +12,7 @@ require_relative './pieces/steppable.rb'
 
 class Board
 
-  attr_accessor :pieces
+  attr_accessor :pieces, :rows, :board
 
   LENGTH = 8
 
@@ -69,7 +69,7 @@ class Board
     move_piece!(start_pos, end_pos)
   end
 
-  def move_piece!(start_pos, end_pos) #doesn't care if it's valid
+  def move_piece!(start_pos, end_pos)
     raise 'thats not a valid position' if start_pos.nil? || valid_pos?(end_pos) == false
     self[*end_pos] = self[*start_pos]
     self[*start_pos] = @np
@@ -134,7 +134,7 @@ class Board
   end
 
 
-  private
+  # private
 
   attr_reader :board
 

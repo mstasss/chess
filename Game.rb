@@ -4,34 +4,60 @@ require_relative './players/humanPlayer.rb'
 
 class Game
     attr_reader :board, :display, :current_player, :players
-    def initialize ()
-        @board = Board.new
-        @display = Display.new(@board)
-        @players = {
-            player_1: HumanPlayer.new(:white, @display),
-            player_2: HumanPlayer.new(:black, @display)
-        }
-        @current_player = :white
+
+    def initialize
+      @board = Board.new
+      @display = Display.new(@board)
+      @players = {
+          white: HumanPlayer.new(:white, @display),
+          black: HumanPlayer.new(:black, @display)
+      }
+      @current_player = :white
     end
 
-    def play
-        until board.in_check?(current_player)
+    # def play
+    #   until board.checkmate?(current_player)
+    #     begin
+    #       start_pos, end_pos = players[current_player].make_move(board)
+    #       board.move_piece(start_pos, end_pos)
+    #     rescue RuntimeError => e
+    #       puts e.message
+    #       retry
+    #     end
+    #     swap_turn!
+    #     notify_players
+    #   end
+
+    #   display.render
+    #   puts "#{current_player} is checkmated."
+    #   nil
+    # end
+
+      def play
+        until board.checkmate?(current_player)
           begin
+            # Prompt the current player to make a move
             start_pos, end_pos = players[current_player].make_move(board)
-            board.move_piece(current_player, start_pos, end_pos)
+
+            # Attempt to move the piece
+            board.move_piece(start_pos, end_pos)
+
+            # If successful, swap turn and perform other necessary updates
             swap_turn!
-            notify_players
-          rescue StandardError => e
-            @display.notifications[:error] = e.message
-            retry
+            # ... any other turn-related logic ...
+
+          rescue RuntimeError => e
+            # Catch the error raised from board.move_piece
+            # Display the error message to the player
+            puts "Error: #{e.message}"
+            # Optionally, add a brief pause
+            sleep(1.5)
+            # No need to call 'retry' here since the loop will continue
           end
         end
+      end
 
-        display.render
-        puts "#{current_player} is checkmated."
 
-        nil
-    end
 
 
   private
@@ -46,11 +72,11 @@ class Game
 
     if $PROGRAM_NAME == __FILE__
       puts "yay"
-        #Game.new.play
+      Game.new.play
     end
 
 
 end
 
-# chess = Game.new
-# chess.play
+chess = Game.new
+chess.play
